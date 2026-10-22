@@ -52,6 +52,7 @@
     align-items: center;
     gap: 12px;
     font-weight: 600;
+    min-width: 0;
   }
   .toolbar-left .tag {
     background: linear-gradient(135deg, #7A3CEF 0%, #EC4899 100%);
@@ -61,10 +62,31 @@
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.4px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
-  .toolbar-actions {
+  .tb-title-desktop {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tb-title-mobile {
+    display: none;
+    font-size: 12px;
+    font-weight: 700;
+    color: #E2E8F0;
+    white-space: nowrap;
+  }
+  .toolbar-actions-desktop {
     display: flex;
     gap: 10px;
+    flex-shrink: 0;
+  }
+  .toolbar-actions-mobile {
+    display: none;
+    gap: 6px;
+    align-items: center;
+    flex-shrink: 0;
   }
   .btn-tool {
     background: rgba(255, 255, 255, 0.08);
@@ -75,10 +97,29 @@
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
   }
   .btn-tool.active {
     background: #7A3CEF;
     border-color: #9333EA;
+  }
+
+  .mobile-hint {
+    display: none;
+    text-align: center;
+    color: #94A3B8;
+    font-size: 11.5px;
+    margin: 0 auto 12px auto;
+    padding: 6px 12px;
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 99px;
+    width: fit-content;
+    max-width: calc(100vw - 24px);
   }
 
   .flyer-stage {
@@ -94,6 +135,13 @@
     justify-content: center;
     align-items: flex-start;
     gap: 24px;
+  }
+
+  .page-shell {
+    width: 794px;
+    height: 1123px;
+    position: relative;
+    flex-shrink: 0;
   }
 
   /* Exact A4 Portrait Page */
@@ -758,6 +806,198 @@
     color: #FFFFFF;
   }
 
+  /* ==================== MOBILE & SMALL SCREEN (< 840px) ==================== */
+  @media screen and (max-width: 839px) {
+    body {
+      padding: 58px 10px 28px 10px;
+      overflow-x: hidden;
+    }
+    .toolbar {
+      height: 48px;
+      padding: 0 12px;
+    }
+    .tb-title-desktop { display: none; }
+    .tb-title-mobile { display: none; }
+    .toolbar-actions-desktop { display: none; }
+    .toolbar-actions-mobile { display: flex; gap: 6px; }
+    .btn-tool {
+      padding: 6px 10px;
+      font-size: 11.5px;
+      border-radius: 7px;
+      gap: 5px;
+    }
+    .btn-tool svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+    }
+    .mobile-hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      line-height: 1.35;
+    }
+    .flyer-stage, .flyer-stage.side-by-side {
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      width: 100%;
+    }
+
+    /* Mobile Read Mode (1-column comfortable reading on phone) */
+    body.mobile-read .page-shell {
+      width: 100% !important;
+      height: auto !important;
+    }
+    body.mobile-read .page {
+      width: 100% !important;
+      height: auto !important;
+      transform: none !important;
+      border-radius: 14px;
+    }
+    body.mobile-read .front-top-canvas {
+      padding: 18px 18px;
+    }
+    body.mobile-read .nav-row {
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    body.mobile-read .event-pill {
+      font-size: 10.5px;
+      padding: 4px 10px;
+    }
+    body.mobile-read .eyebrow-pill {
+      font-size: 10.5px;
+      white-space: normal;
+      line-height: 1.35;
+    }
+    body.mobile-read .hero-title {
+      font-size: 24px;
+      line-height: 1.22;
+    }
+    body.mobile-read .hero-title br {
+      display: none;
+    }
+    body.mobile-read .hero-lead {
+      font-size: 13.8px;
+      line-height: 1.45;
+    }
+    body.mobile-read .front-body,
+    body.mobile-read .back-body {
+      padding: 16px 16px;
+      gap: 16px;
+    }
+    body.mobile-read .visual-stage {
+      padding: 10px 10px;
+      border-radius: 14px;
+    }
+    body.mobile-read .visual-top-bar {
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    body.mobile-read .win-title {
+      font-size: 11px;
+      white-space: normal;
+    }
+    body.mobile-read .visual-img-wrap img {
+      height: auto;
+    }
+    body.mobile-read .benefits-row,
+    body.mobile-read .cap-grid,
+    body.mobile-read .proof-metrics-bar {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    body.mobile-read .b-title,
+    body.mobile-read .cap-ttl {
+      font-size: 14.5px;
+      white-space: normal;
+    }
+    body.mobile-read .b-desc,
+    body.mobile-read .cap-desc {
+      font-size: 13px;
+      line-height: 1.42;
+    }
+    body.mobile-read .front-offer-cta {
+      grid-template-columns: 1fr;
+      padding: 16px;
+      gap: 14px;
+    }
+    body.mobile-read .offer-kicker {
+      font-size: 10px;
+      line-height: 1.3;
+    }
+    body.mobile-read .offer-headline {
+      font-size: 24px;
+    }
+    body.mobile-read .offer-headline span {
+      font-size: 16.5px;
+    }
+    body.mobile-read .qr-box,
+    body.mobile-read .bc-qr {
+      width: 156px;
+      margin: 0 auto;
+    }
+    body.mobile-read .back-header {
+      padding: 12px 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    body.mobile-read .back-header-sep {
+      display: none;
+    }
+    body.mobile-read .back-header-ttl {
+      white-space: normal;
+      font-size: 11.5px;
+    }
+    body.mobile-read .proof-section {
+      padding: 14px;
+    }
+    body.mobile-read .sec-top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    body.mobile-read .sec-title,
+    body.mobile-read .sec-meta {
+      white-space: normal;
+    }
+    body.mobile-read .pm-pill {
+      justify-content: flex-start;
+      padding: 10px 14px;
+    }
+    body.mobile-read .bc-top {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    body.mobile-read .bc-grid {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    body.mobile-read .bc-item {
+      font-size: 13px;
+      line-height: 1.42;
+    }
+    body.mobile-read .bc-contact {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12.5px;
+    }
+    body.mobile-read .bc-contact-item {
+      white-space: normal;
+    }
+    body.mobile-read .mini-foot {
+      padding: 10px 16px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      white-space: normal;
+      font-size: 10.5px;
+    }
+  }
+
   @page {
     size: A4 portrait;
     margin: 0;
@@ -766,7 +1006,8 @@
     body { background: #FFFFFF; padding: 0; margin: 0; }
     .no-print { display: none !important; }
     .flyer-stage, .flyer-stage.side-by-side { display: block; margin: 0; padding: 0; }
-    .page { box-shadow: none; border-radius: 0; margin: 0; page-break-after: always; break-after: page; }
+    .page-shell { width: 794px !important; height: 1123px !important; margin: 0; padding: 0; }
+    .page { width: 794px !important; height: 1123px !important; transform: none !important; box-shadow: none; border-radius: 0; margin: 0; page-break-after: always; break-after: page; }
   }
 </style>
 </head>
@@ -775,18 +1016,38 @@
 <div class="toolbar no-print">
   <div class="toolbar-left">
     <span class="tag">SUNEXT AI</span>
-    <span>Flyer A4 (2 Mặt) — HCM CITY EXPORT 2026 (WTC Expo)</span>
+    <span class="tb-title-desktop">Flyer A4 (2 Mặt) — HCM CITY EXPORT 2026 (WTC Expo)</span>
+    <span class="tb-title-mobile">Flyer A4 (2 Mặt)</span>
   </div>
-  <div class="toolbar-actions">
+  <div class="toolbar-actions-desktop">
     <button class="btn-tool active" id="btn-stacked" onclick="setViewMode('stacked')">Xem Dọc (2 Trang)</button>
     <button class="btn-tool" id="btn-side" onclick="setViewMode('side')">Xem Song Song (2 Mặt)</button>
     <button class="btn-tool" onclick="window.print()">🖨️ In / Lưu PDF (Cmd+P)</button>
   </div>
+  <div class="toolbar-actions-mobile">
+    <button class="btn-tool active" id="btn-m-a4" onclick="setMobileMode('a4')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <span>Khổ A4</span>
+    </button>
+    <button class="btn-tool" id="btn-m-read" onclick="setMobileMode('read')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      <span>Đọc ĐT</span>
+    </button>
+    <a class="btn-tool" href="Sunext_AI_Flyer_HCMC_Export_2026.pdf" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span>PDF</span>
+    </a>
+  </div>
+</div>
+
+<div class="mobile-hint no-print" id="mobile-hint">
+  <span>Đang xem chuẩn <strong>Tờ rơi A4</strong> · Bấm <strong>Đọc ĐT</strong> để xem chữ lớn</span>
 </div>
 
 <div class="flyer-stage" id="flyer-stage">
 
   <!-- ==================== MẶT TRƯỚC (FRONT SIDE) ==================== -->
+  <div class="page-shell">
   <div class="page" id="page-front">
     <div class="front-top-canvas">
       <div class="nav-row">
@@ -887,9 +1148,11 @@
       <div>Xem bằng chứng thực tế &amp; cam kết ở mặt sau ➔</div>
     </div>
   </div>
+  </div>
 
 
   <!-- ==================== MẶT SAU (BACK SIDE) ==================== -->
+  <div class="page-shell">
   <div class="page" id="page-back">
     <div class="back-header">
       <div class="back-header-left">
@@ -1038,6 +1301,7 @@
       <div>HCM CITY EXPORT 2026 · WTC EXPO TP.HCM</div>
     </div>
   </div>
+  </div>
 
 </div>
 
@@ -1055,7 +1319,60 @@ function setViewMode(mode) {
     btnStacked.classList.add('active');
     btnSide.classList.remove('active');
   }
+  updateA4Scale();
 }
+
+function setMobileMode(mode) {
+  const btnA4 = document.getElementById('btn-m-a4');
+  const btnRead = document.getElementById('btn-m-read');
+  const hint = document.getElementById('mobile-hint');
+  if (mode === 'read') {
+    document.body.classList.add('mobile-read');
+    btnRead.classList.add('active');
+    btnA4.classList.remove('active');
+    if (hint) hint.innerHTML = '<span>Đang xem <strong>Chế độ Đọc ĐT</strong> · Bấm <strong>Khổ A4</strong> để xem đúng tờ rơi in ấn</span>';
+  } else {
+    document.body.classList.remove('mobile-read');
+    btnA4.classList.add('active');
+    btnRead.classList.remove('active');
+    if (hint) hint.innerHTML = '<span>Đang xem chuẩn <strong>Tờ rơi A4</strong> · Bấm <strong>Đọc ĐT</strong> để xem chữ lớn</span>';
+  }
+  updateA4Scale();
+}
+
+function updateA4Scale() {
+  const shells = document.querySelectorAll('.page-shell');
+  const vw = Math.min(window.innerWidth || 1024, document.documentElement.clientWidth || 1024);
+  const isReadMode = document.body.classList.contains('mobile-read');
+  if (vw < 840 && !isReadMode) {
+    const availW = Math.max(280, vw - 20);
+    const scale = availW / 794;
+    shells.forEach(shell => {
+      const page = shell.querySelector('.page');
+      shell.style.width = Math.round(794 * scale) + 'px';
+      shell.style.height = Math.round(1123 * scale) + 'px';
+      if (page) {
+        page.style.transform = 'scale(' + scale.toFixed(4) + ')';
+        page.style.transformOrigin = 'top left';
+      }
+    });
+  } else {
+    shells.forEach(shell => {
+      const page = shell.querySelector('.page');
+      shell.style.width = '';
+      shell.style.height = '';
+      if (page) {
+        page.style.transform = '';
+        page.style.transformOrigin = '';
+      }
+    });
+  }
+}
+
+window.addEventListener('DOMContentLoaded', updateA4Scale);
+window.addEventListener('resize', updateA4Scale);
+window.addEventListener('orientationchange', () => setTimeout(updateA4Scale, 100));
+updateA4Scale();
 </script>
 </body>
 </html>
