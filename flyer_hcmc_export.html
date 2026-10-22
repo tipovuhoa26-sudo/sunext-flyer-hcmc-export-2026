@@ -806,8 +806,8 @@
     color: #FFFFFF;
   }
 
-  /* ==================== MOBILE & SMALL SCREEN (< 840px) ==================== */
-  @media screen and (max-width: 839px), screen and (max-device-width: 839px) {
+  /* ==================== MOBILE & SMALL SCREEN (<= 780px) ==================== */
+  @media screen and (max-width: 780px), screen and (max-device-width: 780px) {
     html, body {
       width: 100%;
       max-width: 100vw;
@@ -1039,11 +1039,44 @@
     margin: 0;
   }
   @media print {
-    body { background: #FFFFFF; padding: 0; margin: 0; }
+    html, body {
+      width: 100% !important;
+      height: 100% !important;
+      background: #FFFFFF !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
     .no-print { display: none !important; }
-    .flyer-stage, .flyer-stage.side-by-side { display: block; margin: 0; padding: 0; }
-    .page-shell { width: 794px !important; height: 1123px !important; aspect-ratio: auto !important; overflow: visible !important; box-shadow: none !important; margin: 0; padding: 0; }
-    .page { position: relative !important; width: 794px !important; height: 1123px !important; transform: none !important; box-shadow: none !important; border-radius: 0; margin: 0; page-break-after: always; break-after: page; }
+    .flyer-stage, .flyer-stage.side-by-side { display: block !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+    .page-shell {
+      width: 100vw !important;
+      height: 100vh !important;
+      aspect-ratio: auto !important;
+      overflow: hidden !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      page-break-after: always !important;
+      break-after: page !important;
+    }
+    .page-shell:last-child {
+      page-break-after: auto !important;
+      break-after: auto !important;
+    }
+    .page {
+      position: relative !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      transform: none !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      margin: 0 !important;
+      page-break-after: auto !important;
+      break-after: auto !important;
+    }
   }
 </style>
 </head>
@@ -1378,7 +1411,8 @@ function setMobileMode(mode) {
 
 function updateA4Scale() {
   const shells = document.querySelectorAll('.page-shell');
-  const isMobile = window.matchMedia('(max-width: 839px), (max-device-width: 839px)').matches;
+  const isPrint = window.matchMedia('print').matches;
+  const isMobile = !isPrint && window.matchMedia('screen and (max-width: 780px), screen and (max-device-width: 780px)').matches;
   const isReadMode = document.body.classList.contains('mobile-read');
   shells.forEach(shell => {
     const page = shell.querySelector('.page');
@@ -1398,6 +1432,18 @@ function updateA4Scale() {
     }
   });
 }
+
+window.addEventListener('beforeprint', () => {
+  document.querySelectorAll('.page-shell').forEach(shell => {
+    const page = shell.querySelector('.page');
+    shell.style.width = '';
+    shell.style.height = '';
+    if (page) {
+      page.style.transform = '';
+      page.style.transformOrigin = '';
+    }
+  });
+});
 
 window.addEventListener('DOMContentLoaded', updateA4Scale);
 window.addEventListener('load', updateA4Scale);
