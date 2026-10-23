@@ -271,7 +271,8 @@
     background: linear-gradient(145deg, #1E1B4B 0%, #0F172A 100%);
     border-radius: 18px;
     padding: 13px 15px 13px 15px;
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.11), 0 0 0 1px rgba(122, 60, 239, 0.25);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.11);
+    border: 1.5px solid rgba(122, 60, 239, 0.3);
     position: relative;
   }
   .visual-top-bar {
@@ -1039,6 +1040,15 @@
     margin: 0;
   }
   @media print {
+    *, *::before, *::after {
+      box-shadow: none !important;
+      text-shadow: none !important;
+      filter: none !important;
+      backdrop-filter: none !important;
+    }
+    .front-top-canvas::before {
+      display: none !important;
+    }
     html, body {
       width: 100% !important;
       height: 100% !important;
